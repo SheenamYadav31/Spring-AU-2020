@@ -1,0 +1,42 @@
+.prg_box{
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
+	border-style: solid;
+	border-color: pink;
+	border-width: 10px;
+	border-radius: 10px;
+}
+
+.fill{
+	border-style: solid;
+	border-color: pink;
+	border-width: 10px;
+}
+
+.load{
+	text-align: center;
+	animation: startfilling 10s infinite;
+	animation-timing-function: linear;
+}
+
+@-webkit-keyframes startfilling{
+	from{left: 28px;}
+	to{left: 1000px;}
+}
+
+.cir{
+	border-style: solid;
+	border-color: blue;
+	border-height: 10px;
+	border-width: 10px;
+	border-radius: 50%;
+	position: absolute;
+	animation: startmoving 10s infinite;
+	animation-timing-function: linear;
+}
+
+@-webkit-keyframes startmoving{       /* webkit keyframe is a block containing rules defining style that will be applied fro a movemnt within animation */
+	from{left:28px;}
+	to {left: 1000px;}
+}

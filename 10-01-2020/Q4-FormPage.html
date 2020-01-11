@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FormPage</title>
+	<link rel="stylesheet" href="C:/Users/HP/Desktop/AU/08.01.20/08-01-20/css/bootstrap.min.css">
+	<script type="text/javascript">
+		var usernames = ["realDevil@122", "pakistani_990", "restkless_hero555","a_random_guy_01", "right_right_33", "forevr_alone_100"];
+		var countrynames = ["India", "Nepal", "China", "Pakistan", "Sri Lanka"];
+		var displayName = function(name){
+			console.log("You entered the name: "+name);
+			return;
+		}
+
+		var startmatch = function(){
+			var input_country =  document.getElementById('countryname').value;
+			var r = new RegExp(input_country);
+			countrynames.forEach((item)=>{
+				if(r.test(item)==true){
+					var ul = document.getElementById("matchedcountrynames");
+					var li = document.createElement('li');
+					li.appendChild(document.createTextNode(item));
+					ul.appendChild(li);
+				}
+			})
+		}
+
+		var showCountryNames = function(){
+			document.getElementById("countrynamedropdown").classList.toggle("show");
+		}
+		var showUserNames = function(){
+			document.getElementById("usernamedropdown").classList.toggle("show");
+		}
+		var sort = function(){
+			var name = document.getElementById('name').value;
+			usernames.push(name);
+			usernames.sort();
+			usernames.forEach((item) => {
+				var ul = document.getElementById("sortedusernames");
+				var li = document.createElement('li');
+				li.appendChild(document.createTextNode(item));
+				ul.appendChild(li);
+			})
+			displayName(name);
+		}
+	</script>
+</head>
+<body>
+<div class="container text-center" style="margin-top: 200px; background-color: white">
+			<div class="col-md-8">
+				<div class="form-group">
+					<label><b>Name</b></label>
+					<input type="text" class="form-control" name="usernmae" id="name" placeholder="Enter your username">
+				</div>
+				<div class="form-group">
+					<div class="btn-group">
+						<button class="btn btn-warning btn-lg " onclick="showCountryNames()">Country Names</button>
+						<div class="dropdown-menu" id="countrynamedropdown">
+							<a href="#" class="dropdown-item">India</a>
+							<a href="#" class="dropdown-item">Nepal</a>
+							<a href="#" class="dropdown-item">China</a>
+							<a href="#" class="dropdown-item">Pakistan</a>
+							<a href="#" class="dropdown-item">Sri Lanka</a>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="usernmae" id="countryname" placeholder="Enter country name to match." onchange="startmatch()">
+					</div>
+					<div class="form-group">
+						<ul id="matchedcountrynames"></ul>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="btn-group">
+						<button class="btn btn-warning btn-lg" onclick="showUserNames()">User Names List</button>
+						<div class="dropdown-menu" id="usernamedropdown">
+							<a href="#" class="dropdown-item">realDevil@122</a>
+							<a href="#" class="dropdown-item">pakistani_990</a>
+							<a href="#" class="dropdown-item">restkless_hero555</a>
+							<a href="#" class="dropdown-item">a_random_guy_01</a>
+							<a href="#" class="dropdown-item">right_right_33</a>
+							<a href="#" class="dropdown-item">forevr_alone_100</a>
+						</div>
+					</div>
+				</div>
+				<br>
+				<button class="btn btn-success btn-lg" onclick="sort()">Sort</button>
+				<ul id= "sortedusernames">
+				</ul>
+			</div>
+	</div>
+</body>
+</html>

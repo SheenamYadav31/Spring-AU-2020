@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Page</title>
+	<link rel="stylesheet" href="C:/Users/HP/Desktop/AU/08.01.20/08-01-20/css/bootstrap.min.css">
+	<script type="text/javascript">
+		var passwordsEqual = function(password,confirmpassword){
+			return password===confirmpassword;
+		}
+		var satisfyConditions = function (password){
+
+			var check1 = password.length<8?false:true;
+
+			var temp = password;
+
+			password = password.split("");
+
+			var check2 = password.some((item) => item===item.toUpperCase());
+
+			var check3 = password.some((item) => item===item.toLowerCase());
+
+			var check4 = password.some((item) => {
+				var reg1 = RegExp(/[*$@]/);
+				return reg1.test(item);
+			});
+
+			var reg2 = RegExp(/abc/);
+			var check5 = reg2.test(temp);
+
+			if(!check1) alert("PAssword length should be atlest 8 characters.");
+			if(!check2) alert("Atlest one character should be in Uppercase");
+			if(!check3) alert("Atlest one character should be in Lowercase");
+			if(!check4) alert("Password should contain '*', '$' or '@' symbol");
+			if(!check5) alert("Password must contain substring 'abc'.");
+
+			if(check1 && check2 && check3 && check4 && check5) return true;
+			else return false;
+		}
+
+
+		var displayDetails = function(){
+			username = document.getElementById('username').value;
+			password = document.getElementById('password').value;
+			confirmpassword = document.getElementById('confirmpassword').value;
+			if(passwordsEqual(password,confirmpassword)===false){
+				alert("Your passwords do not match. Please try again.")
+			}
+			satisfyConditions(password)?console.log("Name: "+username+" Password: "+password+ " Confirm Password: "+ confirmpassword):console.log("Please check your input values again");
+		}
+	</script>
+</head>
+<body style="background-image: url('bg.jpg')">
+	<div class="container text-center" style="margin-top: 200px; background-color: white">
+		<div class="row">
+			<div class="col" style="margin-top: 55px">
+				<h1>WELCOME</h1>
+				<p>
+					This is a Login page. This page will allow you to enter your loginid and password to login to our website.<br>
+					After logging in you can use any of our service free of cost. 
+				</p>
+				<p><b>Note: </b>I have modified the Login page we designed as Assignemt on HTML (Day 1) (that assigment was based on bootstrap only)</p>
+			</div>
+			<div style="border-left: 5px dotted grey"></div>
+			<div class="col" style="margin-top: 25px">
+				<div class="form-group">
+					<label><b>User Name</b></label>
+					<input type="text" class="form-control" name="usernmae" id="username" placeholder="Enter your username">
+				</div>
+				<div class="form-group">
+					<label><b>Password</b></label>
+					<input type="Password" class="form-control" name="password" id="password" placeholder="Enter your password">
+				</div>
+				<div class="form-group">
+					<label><b>Confirm Password</b></label>	
+					<input type="Password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="Enter your password">
+				</div>
+				<br>
+				<button class="btn btn-success btn-sm" onclick="displayDetails()">Submit</button>
+				<button class="btn btn-warning btn-sm">Cancel</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

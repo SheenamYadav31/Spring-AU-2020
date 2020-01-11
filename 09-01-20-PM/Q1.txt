@@ -1,0 +1,54 @@
+-- create database employees;
+use employees;
+create table emp (
+	id integer primary key,
+    firstname varchar(20),
+    lastname varchar(20),
+    dept_id integer
+);
+create table dept (
+	dept_id integer primary key,
+    dept_name varchar(20),
+    location varchar(20)
+);
+
+insert into dept values (20,"dept_1", "city_1");
+insert into dept values (30,"dept_2", "city_2");
+insert into dept values (40,"dept_3", "city_3");
+
+insert into emp values (1,"sheenam", "Yadav", 20);
+insert into emp values (5, "Fbser","Bery",30);
+insert into emp values (3, "Rmwer","Serwe",40);
+insert into emp values (2, "Wesaw","Cpsde",40);
+insert into emp values (4, "Atesr","Erevt",20);
+
+
+-- INSERT TRIGGER --------
+CREATE TRIGGER `dept_AFTER_INSERT` AFTER INSERT ON `dept` FOR EACH ROW BEGIN
+set @dept_id = @dept_id + 1;
+END
+
+CREATE TRIGGER `emp_AFTER_INSERT` AFTER INSERT ON `emp` FOR EACH ROW BEGIN
+set @id = @id + 2;
+END
+
+
+-- UPDATE TRIGGER --------
+CREATE TRIGGER `dept_AFTER_UPDATE` AFTER UPDATE ON `dept` FOR EACH ROW BEGIN
+set @location = "new_loc";
+END
+
+CREATE TRIGGER `emp_AFTER_UPDATE` AFTER UPDATE ON `emp` FOR EACH ROW BEGIN
+set @dept_id = 0;
+END
+
+
+-- DELETE TRIGGER --------
+CREATE TRIGGER `dept_AFTER_DELETE` AFTER DELETE ON `dept` FOR EACH ROW BEGIN
+set @dept_id = 0;
+END
+
+CREATE TRIGGER `emp_AFTER_DELETE` AFTER DELETE ON `emp` FOR EACH ROW BEGIN
+set @id = 0;
+END
+

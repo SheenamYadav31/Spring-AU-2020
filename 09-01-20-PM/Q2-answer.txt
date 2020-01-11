@@ -1,0 +1,40 @@
+use employee2;
+create table emp(
+	id integer primary key,
+    fname varchar(20),
+    dept_id integer
+);
+
+insert into emp values ( 1, "Sheenam", 30 );
+insert into emp values ( 2, "Xyz", 30 );
+insert into emp values ( 3, "Abc", 30 );
+insert into emp values ( 4, "Pqr", 30 );
+insert into emp values ( 5, "Mno", 30 );
+insert into emp values ( 6, "Tre", 30 );
+insert into emp values ( 7, "Ewt", 30 );
+insert into emp values ( 8, "WWri", 30 );
+insert into emp values ( 9, "Rwas", 30 );
+insert into emp values ( 10, "Qies", 30 );
+insert into emp values ( 11, "Bgud", 30 );
+insert into emp values ( 12, "Xfdf", 30 );
+insert into emp values ( 13, "Soid", 30 );
+insert into emp values ( 14, "Vksd", 30 );
+insert into emp values ( 15, "Fgid", 30 );
+insert into emp values ( 16, "Nkdl", 30 );
+insert into emp values ( 17, "Bdfk", 30 );
+insert into emp values ( 18, "Besfd", 30 );
+insert into emp values ( 19, "Cfjd", 30 );
+insert into emp values ( 20, "Aedsa", 30 );
+
+-- procedure
+CREATE DEFINER=`root`@`localhost` PROCEDURE `paging_procedure`(
+in pg_num integer,
+in emp_per_page integer
+)
+BEGIN
+select * from emp where emp.id between (emp_per_page*pg_num)+1 and (emp_per_page*pg_num)+emp_per_page;
+END
+
+
+-- calling the procedure arguments passed are - page_number and no_of_employees_per_page
+call paging_procedure(3,4);

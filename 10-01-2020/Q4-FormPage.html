@@ -4,8 +4,11 @@
 	<title>FormPage</title>
 	<link rel="stylesheet" href="C:/Users/HP/Desktop/AU/08.01.20/08-01-20/css/bootstrap.min.css">
 	<script type="text/javascript">
+		
 		var usernames = ["realDevil@122", "pakistani_990", "restkless_hero555","a_random_guy_01", "right_right_33", "forevr_alone_100"];
 		var countrynames = ["India", "Nepal", "China", "Pakistan", "Sri Lanka"];
+		var flg = false;
+
 		var displayName = function(name){
 			console.log("You entered the name: "+name);
 			return;
@@ -13,10 +16,16 @@
 
 		var startmatch = function(){
 			var input_country =  document.getElementById('countryname').value;
-			var r = new RegExp(input_country);
+			var r1 = new RegExp(input_country);
+			var r2 = new RegExp(input_country.toUpperCase());
+			var r3 = new RegExp(input_country.toLowerCase());
+			var ul = document.getElementById("matchedcountrynames");
+
+			while(ul.hasChildNodes()){
+						ul.removeChild(ul.firstChild);
+					}
 			countrynames.forEach((item)=>{
-				if(r.test(item)==true){
-					var ul = document.getElementById("matchedcountrynames");
+				if(r1.test(item)==true || r2.test(item) || r3.test(item)){
 					var li = document.createElement('li');
 					li.appendChild(document.createTextNode(item));
 					ul.appendChild(li);
@@ -34,12 +43,22 @@
 			var name = document.getElementById('name').value;
 			usernames.push(name);
 			usernames.sort();
-			usernames.forEach((item) => {
-				var ul = document.getElementById("sortedusernames");
-				var li = document.createElement('li');
-				li.appendChild(document.createTextNode(item));
-				ul.appendChild(li);
-			})
+			if(flg == false){
+				usernames.forEach((item) => {
+					var ul = document.getElementById("sortedusernames");
+					var li = document.createElement('li');
+					li.appendChild(document.createTextNode(item));
+					ul.appendChild(li);
+				})
+				flg = true;
+			}
+			else{
+				var list = document.getElementById("sortedusernames");
+				while(list.hasChildNodes()){
+					list.removeChild(list.firstChild);
+				}
+				flg = false;
+			}
 			displayName(name);
 		}
 	</script>

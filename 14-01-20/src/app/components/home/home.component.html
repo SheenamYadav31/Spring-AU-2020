@@ -1,0 +1,74 @@
+<h1 align="center">Regestration From</h1>
+<div class="btn btn-info">
+	<p>Interpolation </p>
+	<hr>
+	{{content.value | json}}
+</div>
+<p align="center">Enter your details in this given form and hit submit to save the information.</p>
+<div style="background-color: #f2f2f2; padding:20px; border: 5px dotted grey ">
+
+	<form [formGroup]="content">
+
+		<label style="width: 100%;display: inline-block;">Id </label>
+		<input [class.is-invalid]="content.get('id').invalid && content.get('id').touched" 
+		       style="width: 90%; border-radius: 4px; padding: 14px 20px; margin: 8px 0" type="number" formControlName="id">
+		       <small [class.d-none]="content.get('id').valid || content.get('id').untouched" 
+				       class="text-danger">Id is required</small>
+		<br>
+
+		
+		<label style="width: 100%;display: inline-block;">Name</label>
+		<input  [class.is-invalid]="content.get('firstname').invalid && content.get('firstname').touched" 
+				style="width: 90%; border-radius: 4px; padding: 14px 20px; margin: 8px 0" type="text" formControlName="firstname">
+				
+			<div *ngIf = "content.get('firstname').invalid && content.get('firstname').touched">
+				<small *ngIf="content.get('firstname').errors?.required"
+				class="text-danger">Name is required.</small>
+				<small *ngIf="content.get('firstname').errors?.minlength"
+				class="text-danger">Name should be atlest 3 characters. </small>
+			</div>
+		<br>
+
+		<label style="width: 100%;display: inline-block;">Phone Number </label>
+		<input [class.is-invalid]="content.get('phone').invalid && content.get('phone').touched"
+			style="width: 80%; border-radius: 4px; padding: 14px 20px; margin: 8px 0" type="text" formControlName="phone" >
+			<div *ngIf = "content.get('phone').invalid && content.get('phone').touched">
+				<small *ngIf="content.get('phone').errors?.minlength"
+				class="text-danger">Phone number should have 10 digits. You have entered less digits..</small>
+				<small *ngIf="content.get('phone').errors?.maxlength"
+				class="text-danger">Phone number should have 10 digits. You have entered more digits. </small>
+			</div>
+		<br>
+
+		<label style="width: 100%;display: inline-block;">Email Address </label>
+		<input  [class.is-invalid]="content.get('email').invalid && content.get('email').touched"
+				style="width: 80%; border-radius: 4px; padding: 14px 20px; margin: 8px 0" type="email" formControlName="email" >
+		<br>
+
+		<label style="width: 100%;display: inline-block;">Age </label>
+		<input style="width: 90%; border-radius: 4px; padding: 14px 20px; margin: 8px 0" type="number" formControlName="age" >
+		<br>
+
+		
+
+		<div formGroupName="address">
+			<label style="width: 100%;display: inline-block;"><b>Address</b></label><br>
+
+			<label style="width: 100%;display: inline-block;">House Number/Door No. </label>
+			<input style="width: 90%; border-radius: 4px; padding: 14px 20px; margin: 8px 0" type="text" formControlName="hno" >
+			<br>
+
+			<label style="width: 100%;display: inline-block;">City </label>
+			<input style="width: 90%; border-radius: 4px; padding: 14px 20px; margin: 8px 0" type="text" formControlName="city" >
+			<br>
+
+			<label style="width: 100%;display: inline-block;">Pin Code</label>
+			<input style="width: 90%; border-radius: 4px; padding: 14px 20px; margin: 8px 0" type="number" formControlName="pincode" >
+			<br>
+
+		</div>
+
+		<br>
+
+		<button style="width: 90%; background-color: #45a049; border-radius: 4px; padding: 14px 20px; margin: 8px 0" type="submit" [disabled]="!content.valid" (click)="submitfunction()">Submit</button>
+	</form>

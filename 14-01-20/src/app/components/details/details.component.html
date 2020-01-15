@@ -1,0 +1,7 @@
+<h1>Details of the Registered Persons</h1>
+ <div class="btn btn-success">
+ 	<h6>User Details: (id, name, phone, age, address)</h6>
+	<ul >
+		<li *ngFor="let s of userdetails">{{s.id}}, {{s.name}} {{s.phone}} {{s.age}} {{s.address.hno}}, {{s.address.city}}, {{s.address.pincode}}</li>
+	</ul>
+</div>

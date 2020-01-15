@@ -18,7 +18,7 @@ class MyComponent extends React.Component{
 		// temp.push(item);
 		// this.setState({list: temp});
 		// console.log(this.state.list);
-		this.props.copystate('',item);
+		this.props.saveClickedFruit('',item);
 	}
 
 	matchedFruit(e){

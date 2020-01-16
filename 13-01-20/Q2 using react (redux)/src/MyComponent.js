@@ -64,7 +64,7 @@ class MyComponent extends React.Component{
 
 const copystate = (state) => {
 	return {
-		fruitsnames: state.fruitarr
+		fruitsnames: state.fruit
 	}
 }
 

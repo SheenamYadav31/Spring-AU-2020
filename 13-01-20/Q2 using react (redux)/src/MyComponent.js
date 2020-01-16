@@ -40,7 +40,7 @@ class MyComponent extends React.Component{
 		return(
 			<div>
 				<div style={{float:"left", display:"block", position:"relative", marginLeft: "150px" }}>
-					<input type="text" placeholder="enter CITY to match..." onChange={this.matchedFruit.bind(this)}/>
+					<input type="text" placeholder="enter FRUIT to match..." onChange={this.matchedFruit.bind(this)}/>
 					<div style={{color:"green"}}>
 						<ul>
 							{this.state.matched.map((fruit)=>(<li key={fruit}>{fruit}</li>))}

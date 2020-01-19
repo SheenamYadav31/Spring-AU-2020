@@ -27,30 +27,30 @@ public class MyHandler extends DefaultHandler {
 	
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException{
-		if(qName.equalsIgnoreCase("Hospital")) {
+		if(qName.equalsIgnoreCase("hospital")) {
 			String id = attributes.getValue("id");
 			Hospital hos = new Hospital();
 			hos.setId(Integer.parseInt(id));
 			if(hospitalList==null) hospitalList = new ArrayList<>();
-			else if (qName.equalsIgnoreCase("location")) {
+			else if (qName.equalsIgnoreCase("Location")) {
 				b_location = true;
 			}
-			else if (qName.equalsIgnoreCase("hospitalName")) {
+			else if (qName.equalsIgnoreCase("Hospital_Name")) {
 				b_hospitalName = true;
 			}
-			else if (qName.equalsIgnoreCase("state")) {
+			else if (qName.equalsIgnoreCase("State")) {
 				b_state = true;
 			}
-			else if (qName.equalsIgnoreCase("district")) {
+			else if (qName.equalsIgnoreCase("District")) {
 				b_district = true;
 			}
-			else if (qName.equalsIgnoreCase("pincode")) {
+			else if (qName.equalsIgnoreCase("Pincode")) {
 				b_pincode = true;
 			}
-			else if (qName.equalsIgnoreCase("stateId")) {
+			else if (qName.equalsIgnoreCase("State_ID")) {
 				b_stateId = true;
 			}
-			else if (qName.equalsIgnoreCase("districtId")) {
+			else if (qName.equalsIgnoreCase("District_ID")) {
 				b_districtId = true;
 			}
 			data = new StringBuilder();

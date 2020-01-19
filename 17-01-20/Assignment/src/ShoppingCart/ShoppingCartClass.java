@@ -5,14 +5,15 @@ import ShoppingCart.item;
 import ShoppingCart.myuser;
 
 public class ShoppingCartClass extends myuser {
+	
 	List<item> itemarr = new ArrayList<item>();
-	Map <myuser, ArrayList> myCart = new HashMap <myuser, ArrayList>();
+	public Map <myuser, ArrayList> myCart = new HashMap <myuser, ArrayList>();
 	private myuser user;
+	private int OrderPayment=0;
 	
 	public ShoppingCartClass(myuser user){
 		super (user.user_id, user.user_name);
 		this.user = user;
-		
 	}
 	
 	public item getItemFromList(int id) {
@@ -65,19 +66,21 @@ public class ShoppingCartClass extends myuser {
 			Map.Entry m = (Map.Entry)i.next();
 			myuser u = (myuser)m.getKey();
 			ArrayList<item> li = (ArrayList<item>)m.getValue();
-			System.out.println("Shopping Cart  of USer :"+u);
+			System.out.println("======================================"+this.user.getUserName()+"'s Shopping Cart======================================");
 			if(li.size()>0) {
+				System.out.println();
 				int cnt=1;
 				for(item curr_itm:li) {
 					System.out.println(cnt+". "+"Item Id: "+curr_itm.getItemId()+" Item name: "+curr_itm.getItemName());
 					cnt++;
 				}
+				System.out.println("---------------------------------------------------------------------------------------------------");
 			}
 			else {
-				System.out.println(" is Empty."); return;
-			}
+				System.out.println("Shopping Cart  of User is Empty."); return;
 			}
 		}
+	}
 	
 	public void RemoveFromCart(item i) {
 		myuser u = this.user;
@@ -94,19 +97,55 @@ public class ShoppingCartClass extends myuser {
 		}
 	}
 	
+	public void placeOrder() {
+		int cnt =0 ;
+		ArrayList<item> temp = new ArrayList<item>();
+		temp = myCart.get(user);
+		if(temp.size()<=0) {
+			System.out.println("Cannot Place order. Cart Empty!!");
+			return;
+		}
+		for(item i : temp) {
+			OrderPayment += i.getPrice();
+		}
+		System.out.println("Thakyou! "+this.user+" for placing the order. Order placed successfully!");
+		System.out.println("==========================ORDER DETAILS==========================");
+		for(item i:temp) {
+			System.out.println(cnt+". "+i);
+			cnt++;
+		}
+		System.out.println("---------------------------------------------------------------------");
+		System.out.println("Total Amount Payable : "+OrderPayment);
+		myCart.remove(user);
+	}
+	
+	public void cancelOrder() {
+		ArrayList<item> temp = new ArrayList<item>();
+		temp = myCart.get(user);
+		for(item i:temp) {
+			for(item j:itemarr) {
+				if(i.getItemId() == j.getItemId()) {
+					j.setQty(j.getQty()+i.getQty());
+				}
+			}
+		}
+		myCart.remove(user);
+		System.out.println("----------------------------ORDER CANCELLED---------------------------");
+	}
+	
 	
 	
 	public static void main(String[] args) {
 		
-		item I1 = new item(10, "Fruit", 30);
-		item I2 = new item(20, "Chocolate", 28);
-		item I3 = new item(30, "Pen", 3);
-		item I4 = new item(40, "Juice", 16);
-		item I5 = new item(50, "Biscuits", 19);
-		item I6 = new item(60, "Shoe", 4);
-		item I7 = new item(70, "Bag", 2);
-		item I8 = new item(100, "Mobile",0);
-		item I9 = new item(70, "Jam", 1);
+		item I1 = new item(10, "Fruit", 30,100);
+		item I2 = new item(20, "Chocolate", 28, 50);
+		item I3 = new item(30, "Pen", 3, 5);
+		item I4 = new item(40, "Juice", 16, 90);
+		item I5 = new item(50, "Biscuits", 19, 40);
+		item I6 = new item(60, "Shoe", 4, 1000);
+		item I7 = new item(70, "Bag", 2, 3000);
+		item I8 = new item(100, "Mobile",0, 10000);
+		item I9 = new item(70, "Jam", 1, 150);
 		
 		Scanner in = new Scanner(System.in);
 		int ch1;
@@ -136,51 +175,75 @@ public class ShoppingCartClass extends myuser {
 		do {
 			System.out.println("Please enter your choice: ");
 			System.out.println("1. View Items");
-			System.out.println("2. Add Item to Cart");
-			System.out.println("3. Remove Item From Cart");
-			System.out.println("4. Place Order (details will be lost if you do not place order)");
-			System.out.println("5. Add Items (this feature is for sellers only)");
-			System.out.println("6. Cancel Order");
+			System.out.println("2. View My Cart");
+			System.out.println("3. Add Item to Cart");
+			System.out.println("4. Remove Item From Cart");
+			System.out.println("5. Place Order");
+			System.out.println("6. Add Items (this feature is for SELLERS only)");
+			System.out.println("7. Cancel Order");
 			
 			
 			ch1 = in.nextInt();
 			in.nextLine();
 		
 			switch(ch1) {
+			
 				case 1: cart.ViewItems();
 						break;
-				case 2: System.out.println("Enter Item id: ");
-						int i_id = in.nextInt();
-						item i = cart.getItemFromList(i_id);
-						if(i!=null)cart.AddtoCart(i);
-						else System.out.println("Sorry this item is not available");
-						cart.ViewCart();
+						
+				case 2: cart.ViewCart();
 						break;
+						
 				case 3: System.out.println("Enter Item id: ");
+						int i_id = in.nextInt();
+						in.nextLine();
+						item i = cart.getItemFromList(i_id);
+						if(i!=null) {
+							cart.AddtoCart(i);
+							cart.ViewCart();
+						}
+						else System.out.println("Sorry this item is not available");
+						break;
+						
+				case 4: System.out.println("Enter Item id: ");
 						int i_id2 = in.nextInt();
+						in.nextLine();
 						item i2 = cart.getItemFromList(i_id2);
 						if(i2!=null) cart.RemoveFromCart(i2);
 						else System.out.println("Item can not be removed");
 						cart.ViewCart();
 						break;
-				case 4: System.out.println("Oreder Palced");
+						
+				case 5: cart.placeOrder();
 						break;
-				case 5: System.out.println("Enter Item id: ");
+						
+				case 6: System.out.println("Enter Item id: ");
 						int i_id3 = in.nextInt();
-						System.out.println("Enter Item id: ");
+						in.nextLine();
+						System.out.println("Enter Item name: ");
 						String i_name = in.nextLine();
-						System.out.println("Enter Item id: ");
-						int i_qty = in.nextInt();
-						item itm = new item(id,name,i_qty);
+						in.nextLine();
+						System.out.println("Enter Item quantity: ");
+						int i_qty3 = in.nextInt();
+						in.nextLine();
+						System.out.println("Enter Item price: ");
+						int i_price = in.nextInt();
+						in.nextLine();
+						item itm = new item(i_id3,i_name,i_qty3,i_price);
 						cart.AddNewItem(itm,true);
 						break;
-				case 6: System.out.println("Oreder Cancled.");
+						
+				case 7: cart.cancelOrder();
+						System.out.println("Order Cancelled. Your Cart is empty now.");
 						break;
+						
 				default: System.out.println("Enter Correct choice!!");
+				
 			}
 		System.out.println("Do you want to continue? (Y/N): ");
+		//in.nextLine();
 		ch2 = in.nextLine();
-		}while(ch2=="Y"||ch2=="y");
+		}while(ch2.equals("Y")||ch2.equals("y"));
 		
 		System.out.println("Bye Bye!!");
 		

@@ -3,6 +3,9 @@ package com.springau.main;
 import java.util.*;
 import com.springau.model.ID;
 import com.springau.model.Person;
+
+import src.springau.config.AppConfig;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,6 +29,8 @@ public class Employee {
 	
 	public static void main(String[] args) {
 		
+		//---------------------------METHOD 1----------------------------------------
+		
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 		
 		Person p1  = (Person) context.getBean("person1");
@@ -46,6 +51,14 @@ public class Employee {
 		for(Map.Entry<ID, Person> i: temp.entrySet()) {
 			System.out.println("Emp Id: "+i.getKey()+" ,Emp Details: "+i.getValue());
 		}
+		
+		//---------------------------METHOD 2-------------------------------
+		
+//		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+//		
+//		Employee e = context.getBean(Employee.class);
+//		System.out.println("Emp Id: "+e.id+" ,Emp Details: "+e.p);
+		
 	}
 
 }

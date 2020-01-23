@@ -1,7 +1,6 @@
 package com.springau.main;
 
 import java.util.*;
-import com.springau.model.ID;
 import com.springau.model.Person;
 
 import src.springau.config.AppConfig;
@@ -12,21 +11,26 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Employee {
 	
-	private ID id;
+	private Integer id;
 	private Person p;
 	
-	private static Map<ID, Person> empMap = new HashMap<ID, Person>();
+	private static Map<Integer, Person> empMap = new HashMap<Integer, Person>();
 	
-	public Employee(ID id, Person p) {
+	public Employee(Integer id, Person p) {
 		this.id=id;
 		this.p=p;
-		empMap.put(id, p);
 	}
 	
-	public Map<ID, Person> getAllEmployees(){
-		return this.empMap;
+	public Employee(HashMap<Integer, Person> empMap) {
+		this.empMap = empMap;
 	}
 	
+	public void displayEmployeeMap() {
+		for(Map.Entry<Integer, Person> i: empMap.entrySet()) {
+			System.out.println("Emp Id: "+i.getKey()+" ,Emp Details: "+i.getValue());
+		}
+	}
+		
 	public static void main(String[] args) {
 		
 		//---------------------------METHOD 1----------------------------------------
@@ -43,14 +47,9 @@ public class Employee {
 		System.out.println(p3);
 		
 		Employee e1 = (Employee) context.getBean("e1");
-		Employee e2 = (Employee) context.getBean("e2");
-		Employee e3 = (Employee) context.getBean("e3");
-		
-		Map<ID, Person> temp = e3.getAllEmployees();
+
 		System.out.println("----------------EMPLOYEES-----------------");
-		for(Map.Entry<ID, Person> i: temp.entrySet()) {
-			System.out.println("Emp Id: "+i.getKey()+" ,Emp Details: "+i.getValue());
-		}
+		e1.displayEmployeeMap();
 		
 		//---------------------------METHOD 2-------------------------------
 		

@@ -14,14 +14,13 @@ public class AppConfig {
 	
 	@Bean(name = "employee")
 	public Employee getEmployee() {
-		ID id = getID();
+		Integer id = getID();
 		Person p = getPerson();
 		return(new Employee(id,p));
 	}
 	
-	private ID getID(){
-		ID newID = new ID();
-		newID.setId(30);
+	private Integer getID(){
+		Integer newID = 30;
 		return newID;
 	}
 	

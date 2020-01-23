@@ -38,18 +38,13 @@
 	</bean> 
 <!-- Employee class objects are assigned using Constructor --> 
 
-	<bean id="e1" class="com.springau.main.Employee">
-	<constructor-arg name="id" ref="id1"></constructor-arg>
-	<constructor-arg name="p" ref="person1"></constructor-arg>
-	</bean>
-	
-	<bean id="e2" class="com.springau.main.Employee">
-	<constructor-arg name="id" ref="id2"></constructor-arg>
-	<constructor-arg name="p" ref="person2"></constructor-arg>
-	</bean>
-	
-	<bean id="e3" class="com.springau.main.Employee">
-	<constructor-arg name="id" ref="id3"></constructor-arg>
-	<constructor-arg name="p" ref="person3"></constructor-arg>
+	<bean id="e1" name="e1" class="com.springau.main.Employee">
+	<constructor-arg>
+		<map>
+			<entry key="1" value-ref="person1" />
+			<entry key="2" value-ref="person2" />
+			<entry key="3" value-ref="person3" />
+		</map>
+	</constructor-arg>
 	</bean>
 </beans>

@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Farmer implements Runnable{
 
 	private fruit currentFruit;
+	private boolean success=false;
 	
 	public void sellMyFruit() {
 		Scanner in = new Scanner(System.in);
@@ -13,6 +14,17 @@ public class Farmer implements Runnable{
 		System.out.println("Enter Quantity: ");
 		int fruitqty = in.nextInt();
 		this.currentFruit = new fruit(fruitname, fruitqty);
+	}
+	
+	public fruit getMatchedFruit(fruit currentfruit) {
+		for(fruit f : Supermarket.fruits) {
+			if(f.getName().equals(currentFruit.getName())){
+				return f;
+			}
+		}
+		fruit temp = new fruit(currentfruit.getName(),0);
+		Supermarket.fruits.add(temp);
+		return temp;
 	}
 	
 	public void run() {
@@ -24,16 +36,20 @@ public class Farmer implements Runnable{
 		catch(Exception e) {
 			System.out.println(e);
 		}
-		
+		fruit matchedfruit = getMatchedFruit(currentFruit);
 		synchronized (Supermarket.fruits) {
-			
-			for(int i=1;i<=5;i++) {
-				Supermarket.fruits.add(currentFruit);
-				//Flipcart.inventory.notify();
-				Supermarket.fruits.notifyAll();
+			if(!success && !Supermarket.isFull(Supermarket.total+currentFruit.getQuantity()+matchedfruit.getQuantity())) {
+				for(fruit f : Supermarket.fruits) {
+					if(f.getName().equals(currentFruit.getName())){
+						f.setQuantity(currentFruit.getQuantity()+f.getQuantity());
+						Supermarket.total = Supermarket.total+currentFruit.getQuantity()+f.getQuantity();
+						System.out.println("Hello, Farmer (Thread)"+Thread.currentThread().getName()+" ,Your fruit stock is sold.");
+						break;
+					}
+				}
 			}
-			System.out.println("Size of Inventory: "+ Supermarket.fruits.size());
-			
+			System.out.println("---------------Updated Inventory---------------------");
+			Supermarket.ViewSupermarket();
 		}
 	}
 }

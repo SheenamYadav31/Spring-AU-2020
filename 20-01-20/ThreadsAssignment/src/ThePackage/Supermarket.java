@@ -6,9 +6,16 @@ public class Supermarket {
 	
 	public static List<fruit> fruits = new ArrayList<fruit>(); 
 	
+	public static int total;
+	
 	public List<Thread> consumers = new ArrayList<Thread>(); 
 	
 	public List<Thread> farmers = new ArrayList<Thread>(); 
+	
+	public static boolean isFull(int s) {
+		if(total >= 40) return true;
+		return false;
+	}
 	
 	public static boolean canSell(fruit fru) {
 		for(fruit f :fruits) {
@@ -34,7 +41,6 @@ public class Supermarket {
 			c.buyFruit();
 			//tc.start();
 		}
-		ViewSupermarket();
 	}
 	
 	public void createFarmers() {
@@ -53,8 +59,6 @@ public class Supermarket {
 			f.sellMyFruit();
 			tf.start();
 		}
-		ViewSupermarket();
-		
 	}
 	
 	public static String sellThisFruit(fruit fru) {
@@ -67,7 +71,7 @@ public class Supermarket {
 		return "This fruit is unavailable.";
 	}
 	
-	public void ViewSupermarket() {
+	public static void ViewSupermarket() {
 		int i=0;
 		System.out.println("-------------------------The Supermarket-------------------------");
 		System.out.println("Current Inventory");
@@ -87,9 +91,8 @@ public class Supermarket {
 	
 	public static void main(String[] args) {
 		
-		Supermarket market = new Supermarket();
-//		
-//		Scanner in = new Scanner(System.in);
+		Supermarket market = new Supermarket();	
+		Scanner in = new Scanner(System.in);
 //		int ch1;
 //		String ch2;
 //		String ch3;
@@ -102,18 +105,34 @@ public class Supermarket {
 		
 		System.out.println("========================WELCOME===========================");
 		
+		System.out.println("Enter no. of Customers: ");
+		int m = in.nextInt();
+		
+		System.out.println("Enter no. of Farmers: ");
+		int n = in.nextInt();
+		
 		System.out.println("Creating Customers");
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<m;i++) {
 			market.createCustomers();
 		}
 		
 		System.out.println("Creating Farmers");
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<n;i++) {
 			market.createFarmers();
 		}
 		
 		for( Thread cust : market.consumers) {
+			if(!cust.isAlive())
+			{
 			cust.start();
+			}
+		}
+		
+		for(Thread far : market.farmers) {
+			if(!far.isAlive())
+			{
+			far.start();
+			}
 		}
 		
 		
@@ -172,23 +191,4 @@ public class Supermarket {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -20,7 +20,7 @@ import javax.persistence.Column;
 })
 public class User {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)    //surogate key
+	
 	private int id;
 	private String name;
 	
